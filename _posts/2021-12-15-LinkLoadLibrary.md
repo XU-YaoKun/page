@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "链接、加载和库"
-date:   2021-07-25 18:05:55 +0800
-image:  john.jpg
+date:   2021-12-15 18:05:55 +0800
+image:  pink.jpg
 tags:   [Note]
 ---
 

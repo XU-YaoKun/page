@@ -19,3 +19,14 @@ permalink: /resource/
 
 3. [C++ HOPL4 zh](https://github.com/Cpp-Club/Cxx_HOPL4_zh)
 
+4. [The Ultimate vimrc](https://github.com/amix/vimrc)
+
+5. [how to optimize gemm](https://github.com/flame/how-to-optimize-gemm/tree/master/src)
+
+## Utils
+
+1. [Android Code Search](https://cs.android.com/)
+
+2. [Code Browser for C & C++](https://code.woboq.org/)
+ 
+3. [libgen](http://libgen.is/)
