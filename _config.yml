@@ -10,7 +10,7 @@ url: "https://tonepture.com" # the base hostname & protocol for your site, e.g. 
 #-------------------------------
 # About Section
 author-name: alu 
-author-avatar: 09.jpg
+author-avatar: profile.jpg
 
 
 #-------------------------------
@@ -23,7 +23,7 @@ pinterest: https://www.pinterest.com/ # Add your Facebook handle
 
 #-------------------------------
 # Comment Section (Disqus)
-disqus-identifier: mr-brown # Add your shortname for Disqus Comment. For example mr-brown
+disqus-identifier: alu-blog # Add your shortname for Disqus Comment. For example mr-brown
 
 
 #-------------------------------
@@ -58,15 +58,3 @@ include:
 sass:
   sass_dir: _sass
   style: compressed
-
-
-#-------------------------------
-# Exclude from processing.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
