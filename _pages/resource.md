@@ -11,6 +11,8 @@ permalink: /resource/
 
 2. [Format String Attack](https://web.ecs.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/Format_String.pdf)
 
+3. [how to optimize gemm](https://github.com/flame/how-to-optimize-gemm/tree/master/src)
+
 ## Blogs
 
 1. [SpiderMonkey](https://spidermonkey.dev/)
