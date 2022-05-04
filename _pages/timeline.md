@@ -26,3 +26,7 @@ image: timeline.jpg
 最近看完了《链接、加载与库》，整理了一下读书笔记。
 
 把个人主页从mkdocs切到了jekyll，不得不说还是jekyll的模版好看一点。
+
+#### 2022.5.4
+
+《C++ Concurrency in action》看了小半年了，还有最后线程池和debug的部分没看完，先写了一篇内存模型的博客，有产出总是好过一直看。
