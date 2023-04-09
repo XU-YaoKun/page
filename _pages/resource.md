@@ -29,6 +29,8 @@ permalink: /resource/
 
 5. [how to optimize gemm](https://github.com/flame/how-to-optimize-gemm/tree/master/src)
 
+6. [json tutorial](https://github.com/miloyip/json-tutorial/tree/master)
+
 ## Utils
 
 1. [Android Code Search](https://cs.android.com/)
