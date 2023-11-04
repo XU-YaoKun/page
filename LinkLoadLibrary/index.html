@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>链接、加载和库</title>
+  <meta name='description' content='notes, translations and thoughts'>
+
+  <link rel="canonical" href="https://tonepture.com/LinkLoadLibrary/">
+  <link rel="alternate" type="application/rss+xml" title="alu - Blogs" href="/feed.xml">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+  <!-- Ionicons -->
+  <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
+
+
+
+  <style>
+  
+  /*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}h1{font-size:2em;margin:0.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace, monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:0.35em 0.75em 0.625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,hr{margin:0;padding:0}li>ul,li>ol{margin-bottom:0}table{border-collapse:collapse;border-spacing:0}h1,h2,h3,h4,h5,h6,ul,ol,dl,blockquote,p,address,hr,table,fieldset,figure,pre{margin-bottom:15px}ul,ol,dd{margin-left:15px}.highlight{background:#2C2F36}.highlighter-rouge .highlight{background:#eef}.highlight pre{background-color:#272822}.highlight .hll{background-color:#272822}.highlight .c{color:#75715e}.highlight .err{color:#960050;background-color:#1e0010}.highlight .k{color:#66d9ef}.highlight .l{color:#ae81ff}.highlight .n{color:#f8f8f2}.highlight .o{color:#f92672}.highlight .p{color:#f8f8f2}.highlight .cm{color:#75715e}.highlight .cp{color:#75715e}.highlight .c1{color:#75715e}.highlight .cs{color:#75715e}.highlight .ge{font-style:italic}.highlight .gs{font-weight:bold}.highlight .kc{color:#66d9ef}.highlight .kd{color:#66d9ef}.highlight .kn{color:#f92672}.highlight .kp{color:#66d9ef}.highlight .kr{color:#66d9ef}.highlight .kt{color:#66d9ef}.highlight .ld{color:#e6db74}.highlight .m{color:#ae81ff}.highlight .s{color:#e6db74}.highlight .na{color:#a6e22e}.highlight .nb{color:#f8f8f2}.highlight .nc{color:#a6e22e}.highlight .no{color:#66d9ef}.highlight .nd{color:#a6e22e}.highlight .ni{color:#f8f8f2}.highlight .ne{color:#a6e22e}.highlight .nf{color:#a6e22e}.highlight .nl{color:#f8f8f2}.highlight .nn{color:#f8f8f2}.highlight .nx{color:#a6e22e}.highlight .py{color:#f8f8f2}.highlight .nt{color:#f92672}.highlight .nv{color:#f8f8f2}.highlight .ow{color:#f92672}.highlight .w{color:#f8f8f2}.highlight .mf{color:#ae81ff}.highlight .mh{color:#ae81ff}.highlight .mi{color:#ae81ff}.highlight .mo{color:#ae81ff}.highlight .sb{color:#e6db74}.highlight .sc{color:#e6db74}.highlight .sd{color:#e6db74}.highlight .s2{color:#e6db74}.highlight .se{color:#ae81ff}.highlight .sh{color:#e6db74}.highlight .si{color:#e6db74}.highlight .sx{color:#e6db74}.highlight .sr{color:#e6db74}.highlight .s1{color:#e6db74}.highlight .ss{color:#e6db74}.highlight .bp{color:#f8f8f2}.highlight .vc{color:#f8f8f2}.highlight .vg{color:#f8f8f2}.highlight .vi{color:#f8f8f2}.highlight .il{color:#ae81ff}.highlight .gu{color:#75715e}.highlight .gd{color:#f92672}.highlight .gi{color:#a6e22e}.container{max-width:1200px;padding-left:15px;padding-right:15px;margin:0 auto}.container-full{max-width:100%;padding-left:15px;padding-right:15px;margin:0 auto}.row{display:flex;flex-wrap:wrap;flex:0 1 auto;flex-direction:row;box-sizing:border-box;margin-left:-15px;margin-right:-15px}.col{padding-left:15px;padding-right:15px}[class^="col-"]{flex:auto}.col-0{width:0%}.col-1{width:8.3333333333%}.col-2{width:16.6666666667%}.col-3{width:25%}.col-4{width:33.3333333333%}.col-5{width:41.6666666667%}.col-6{width:50%}.col-7{width:58.3333333333%}.col-8{width:66.6666666667%}.col-9{width:75%}.col-10{width:83.3333333333%}.col-11{width:91.6666666667%}.col-12{width:100%}.push-0{margin-left:0%}.push-1{margin-left:8.3333333333%}.push-2{margin-left:16.6666666667%}.push-3{margin-left:25%}.push-4{margin-left:33.3333333333%}.push-5{margin-left:41.6666666667%}.push-6{margin-left:50%}.push-7{margin-left:58.3333333333%}.push-8{margin-left:66.6666666667%}.push-9{margin-left:75%}.push-10{margin-left:83.3333333333%}.push-11{margin-left:91.6666666667%}.push-12{margin-left:100%}.pull-0{margin-right:0%}.pull-1{margin-right:8.3333333333%}.pull-2{margin-right:16.6666666667%}.pull-3{margin-right:25%}.pull-4{margin-right:33.3333333333%}.pull-5{margin-right:41.6666666667%}.pull-6{margin-right:50%}.pull-7{margin-right:58.3333333333%}.pull-8{margin-right:66.6666666667%}.pull-9{margin-right:75%}.pull-10{margin-right:83.3333333333%}.pull-11{margin-right:91.6666666667%}.pull-12{margin-right:100%}@media (min-width: 768px){.col-t-0{width:0%}.col-t-1{width:8.3333333333%}.col-t-2{width:16.6666666667%}.col-t-3{width:25%}.col-t-4{width:33.3333333333%}.col-t-5{width:41.6666666667%}.col-t-6{width:50%}.col-t-7{width:58.3333333333%}.col-t-8{width:66.6666666667%}.col-t-9{width:75%}.col-t-10{width:83.3333333333%}.col-t-11{width:91.6666666667%}.col-t-12{width:100%}.push-t-0{margin-left:0%}.push-t-1{margin-left:8.3333333333%}.push-t-2{margin-left:16.6666666667%}.push-t-3{margin-left:25%}.push-t-4{margin-left:33.3333333333%}.push-t-5{margin-left:41.6666666667%}.push-t-6{margin-left:50%}.push-t-7{margin-left:58.3333333333%}.push-t-8{margin-left:66.6666666667%}.push-t-9{margin-left:75%}.push-t-10{margin-left:83.3333333333%}.push-t-11{margin-left:91.6666666667%}.push-t-12{margin-left:100%}.pull-t-0{margin-right:0%}.pull-t-1{margin-right:8.3333333333%}.pull-t-2{margin-right:16.6666666667%}.pull-t-3{margin-right:25%}.pull-t-4{margin-right:33.3333333333%}.pull-t-5{margin-right:41.6666666667%}.pull-t-6{margin-right:50%}.pull-t-7{margin-right:58.3333333333%}.pull-t-8{margin-right:66.6666666667%}.pull-t-9{margin-right:75%}.pull-t-10{margin-right:83.3333333333%}.pull-t-11{margin-right:91.6666666667%}.pull-t-12{margin-right:100%}}@media (min-width: 992px){.col-d-0{width:0%}.col-d-1{width:8.3333333333%}.col-d-2{width:16.6666666667%}.col-d-3{width:25%}.col-d-4{width:33.3333333333%}.col-d-5{width:41.6666666667%}.col-d-6{width:50%}.col-d-7{width:58.3333333333%}.col-d-8{width:66.6666666667%}.col-d-9{width:75%}.col-d-10{width:83.3333333333%}.col-d-11{width:91.6666666667%}.col-d-12{width:100%}.push-d-0{margin-left:0%}.push-d-1{margin-left:8.3333333333%}.push-d-2{margin-left:16.6666666667%}.push-d-3{margin-left:25%}.push-d-4{margin-left:33.3333333333%}.push-d-5{margin-left:41.6666666667%}.push-d-6{margin-left:50%}.push-d-7{margin-left:58.3333333333%}.push-d-8{margin-left:66.6666666667%}.push-d-9{margin-left:75%}.push-d-10{margin-left:83.3333333333%}.push-d-11{margin-left:91.6666666667%}.push-d-12{margin-left:100%}.pull-d-0{margin-right:0%}.pull-d-1{margin-right:8.3333333333%}.pull-d-2{margin-right:16.6666666667%}.pull-d-3{margin-right:25%}.pull-d-4{margin-right:33.3333333333%}.pull-d-5{margin-right:41.6666666667%}.pull-d-6{margin-right:50%}.pull-d-7{margin-right:58.3333333333%}.pull-d-8{margin-right:66.6666666667%}.pull-d-9{margin-right:75%}.pull-d-10{margin-right:83.3333333333%}.pull-d-11{margin-right:91.6666666667%}.pull-d-12{margin-right:100%}}@media (min-width: 768px){.col-t-0{width:0%}.col-t-1{width:8.3333333333%}.col-t-2{width:16.6666666667%}.col-t-3{width:25%}.col-t-4{width:33.3333333333%}.col-t-5{width:41.6666666667%}.col-t-6{width:50%}.col-t-7{width:58.3333333333%}.col-t-8{width:66.6666666667%}.col-t-9{width:75%}.col-t-10{width:83.3333333333%}.col-t-11{width:91.6666666667%}.col-t-12{width:100%}.push-t-0{margin-left:0%}.push-t-1{margin-left:8.3333333333%}.push-t-2{margin-left:16.6666666667%}.push-t-3{margin-left:25%}.push-t-4{margin-left:33.3333333333%}.push-t-5{margin-left:41.6666666667%}.push-t-6{margin-left:50%}.push-t-7{margin-left:58.3333333333%}.push-t-8{margin-left:66.6666666667%}.push-t-9{margin-left:75%}.push-t-10{margin-left:83.3333333333%}.push-t-11{margin-left:91.6666666667%}.push-t-12{margin-left:100%}.pull-t-0{margin-right:0%}.pull-t-1{margin-right:8.3333333333%}.pull-t-2{margin-right:16.6666666667%}.pull-t-3{margin-right:25%}.pull-t-4{margin-right:33.3333333333%}.pull-t-5{margin-right:41.6666666667%}.pull-t-6{margin-right:50%}.pull-t-7{margin-right:58.3333333333%}.pull-t-8{margin-right:66.6666666667%}.pull-t-9{margin-right:75%}.pull-t-10{margin-right:83.3333333333%}.pull-t-11{margin-right:91.6666666667%}.pull-t-12{margin-right:100%}}@media (min-width: 992px){.col-d-0{width:0%}.col-d-1{width:8.3333333333%}.col-d-2{width:16.6666666667%}.col-d-3{width:25%}.col-d-4{width:33.3333333333%}.col-d-5{width:41.6666666667%}.col-d-6{width:50%}.col-d-7{width:58.3333333333%}.col-d-8{width:66.6666666667%}.col-d-9{width:75%}.col-d-10{width:83.3333333333%}.col-d-11{width:91.6666666667%}.col-d-12{width:100%}.push-d-0{margin-left:0%}.push-d-1{margin-left:8.3333333333%}.push-d-2{margin-left:16.6666666667%}.push-d-3{margin-left:25%}.push-d-4{margin-left:33.3333333333%}.push-d-5{margin-left:41.6666666667%}.push-d-6{margin-left:50%}.push-d-7{margin-left:58.3333333333%}.push-d-8{margin-left:66.6666666667%}.push-d-9{margin-left:75%}.push-d-10{margin-left:83.3333333333%}.push-d-11{margin-left:91.6666666667%}.push-d-12{margin-left:100%}.pull-d-0{margin-right:0%}.pull-d-1{margin-right:8.3333333333%}.pull-d-2{margin-right:16.6666666667%}.pull-d-3{margin-right:25%}.pull-d-4{margin-right:33.3333333333%}.pull-d-5{margin-right:41.6666666667%}.pull-d-6{margin-right:50%}.pull-d-7{margin-right:58.3333333333%}.pull-d-8{margin-right:66.6666666667%}.pull-d-9{margin-right:75%}.pull-d-10{margin-right:83.3333333333%}.pull-d-11{margin-right:91.6666666667%}.pull-d-12{margin-right:100%}}@media (min-width: 768px){.col-t-0{width:0%}.col-t-1{width:8.3333333333%}.col-t-2{width:16.6666666667%}.col-t-3{width:25%}.col-t-4{width:33.3333333333%}.col-t-5{width:41.6666666667%}.col-t-6{width:50%}.col-t-7{width:58.3333333333%}.col-t-8{width:66.6666666667%}.col-t-9{width:75%}.col-t-10{width:83.3333333333%}.col-t-11{width:91.6666666667%}.col-t-12{width:100%}.push-t-0{margin-left:0%}.push-t-1{margin-left:8.3333333333%}.push-t-2{margin-left:16.6666666667%}.push-t-3{margin-left:25%}.push-t-4{margin-left:33.3333333333%}.push-t-5{margin-left:41.6666666667%}.push-t-6{margin-left:50%}.push-t-7{margin-left:58.3333333333%}.push-t-8{margin-left:66.6666666667%}.push-t-9{margin-left:75%}.push-t-10{margin-left:83.3333333333%}.push-t-11{margin-left:91.6666666667%}.push-t-12{margin-left:100%}.pull-t-0{margin-right:0%}.pull-t-1{margin-right:8.3333333333%}.pull-t-2{margin-right:16.6666666667%}.pull-t-3{margin-right:25%}.pull-t-4{margin-right:33.3333333333%}.pull-t-5{margin-right:41.6666666667%}.pull-t-6{margin-right:50%}.pull-t-7{margin-right:58.3333333333%}.pull-t-8{margin-right:66.6666666667%}.pull-t-9{margin-right:75%}.pull-t-10{margin-right:83.3333333333%}.pull-t-11{margin-right:91.6666666667%}.pull-t-12{margin-right:100%}}@media (min-width: 992px){.col-d-0{width:0%}.col-d-1{width:8.3333333333%}.col-d-2{width:16.6666666667%}.col-d-3{width:25%}.col-d-4{width:33.3333333333%}.col-d-5{width:41.6666666667%}.col-d-6{width:50%}.col-d-7{width:58.3333333333%}.col-d-8{width:66.6666666667%}.col-d-9{width:75%}.col-d-10{width:83.3333333333%}.col-d-11{width:91.6666666667%}.col-d-12{width:100%}.push-d-0{margin-left:0%}.push-d-1{margin-left:8.3333333333%}.push-d-2{margin-left:16.6666666667%}.push-d-3{margin-left:25%}.push-d-4{margin-left:33.3333333333%}.push-d-5{margin-left:41.6666666667%}.push-d-6{margin-left:50%}.push-d-7{margin-left:58.3333333333%}.push-d-8{margin-left:66.6666666667%}.push-d-9{margin-left:75%}.push-d-10{margin-left:83.3333333333%}.push-d-11{margin-left:91.6666666667%}.push-d-12{margin-left:100%}.pull-d-0{margin-right:0%}.pull-d-1{margin-right:8.3333333333%}.pull-d-2{margin-right:16.6666666667%}.pull-d-3{margin-right:25%}.pull-d-4{margin-right:33.3333333333%}.pull-d-5{margin-right:41.6666666667%}.pull-d-6{margin-right:50%}.pull-d-7{margin-right:58.3333333333%}.pull-d-8{margin-right:66.6666666667%}.pull-d-9{margin-right:75%}.pull-d-10{margin-right:83.3333333333%}.pull-d-11{margin-right:91.6666666667%}.pull-d-12{margin-right:100%}}@media (min-width: 992px){.d-hide{display:none !important}.d-show{display:block !important}}*,*::after,*::before{box-sizing:border-box}body{font-family:"Nunito",sans-serif;font-size:16px;line-height:28px;color:#C9D3E7;background:#2C2F36;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body input,body textarea{border:#3E4250 1px solid;outline:none}body input:focus:required:invalid,body textarea:focus:required:invalid{border-color:#e02f40}body input:required:valid,body textarea:required:valid{border-color:#34a74e}::placeholder{color:#666}*::selection{color:#fff;background-color:#1ABC9C}h1,h2,h3,h4,h5,h6{line-height:initial}h1{font-size:36px}h2{font-size:28px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}blockquote{padding-left:15px;border-left:3px solid #1ABC9C;font-style:normal}pre{overflow:auto;padding:15px;margin-bottom:0;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all}img{max-width:100%;height:auto;vertical-align:middle}img+em{text-align:center;display:block;margin-top:10px;font-weight:normal;font-size:16px;color:#707890}a{text-decoration:none;color:#1ABC9C;transition:.35s}a:hover{color:#3ee4c4}hr{display:block;height:2px;padding:0;margin:30px 0;line-height:0;border:0;background-color:#3E4250}blockquote{padding:15px 15px 15px 30px;font-size:18px;font-style:normal;border-left:4px solid #1ABC9C}blockquote p{margin-bottom:0}pre{overflow:auto;padding:15px;margin-bottom:0;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all}.table-container{max-width:100%;overflow-x:auto}table{font-size:12px;color:#101010;width:100%;border-width:1px;border-color:#707890;border-collapse:collapse}table th{padding:8px;font-size:16px;text-align:left;border:1px solid #707890;color:#fff;background-color:#1ABC9C}table tr{background-color:#c5f7ed;transition:all .3s ease}table tr:nth-child(even){background-color:#fff}table td{padding:8px;font-size:14px;border:1px solid #707890}table tr:hover{background-color:#fff}.preloader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;overflow:hidden;background:#101010}.loader{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);padding:10px;font-family:'Nunito', sans-serif;font-size:21px;letter-spacing:.5em;text-transform:uppercase;font-weight:700;color:#fff;background:#101010}.loader span{color:#fff;mix-blend-mode:difference}.loader:before{content:'';position:absolute;top:0;left:0;width:60px;height:100%;background:#fff;animation:animate 3s linear infinite}@keyframes animate{0%{left:0}50%{left:calc(100% - 70px)}100%{left:0}}.button{display:inline-block;white-space:nowrap;vertical-align:middle;font:inherit;text-align:center;padding:8px 30px;border-radius:3px;cursor:pointer;transition:.35s}.button--primary{color:#fff;background-color:#1ABC9C}.button--primary:hover{background-color:#117964;color:#fff;transition:.35s}.button--big{display:block;width:100%}.sidebar{margin-bottom:30px}.widget{padding:40px 15px;margin-bottom:30px;background:rgba(35,36,39,0.95);box-shadow:0 9px 18px 0 rgba(0,0,0,0.25)}.widget .widget-title{position:relative;padding-bottom:15px;margin-bottom:20px;font-size:21px;text-align:center}.widget .widget-title:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:block;width:50px;height:2px;background:#3E4250}.recent-posts{display:flex;flex-wrap:wrap;align-items:center;margin-bottom:15px}.recent-posts:hover .recent-image::before{background:rgba(0,0,0,0.15);transition:all .5s ease}.recent-posts:hover .recent-content .recent-title a{color:#3ee4c4}.recent-posts:last-child{margin-bottom:0}.recent-posts .recent-header{width:100%;margin-bottom:10px;background:#101010}.recent-posts .recent-header.reveal-in .recent-image{opacity:1}.recent-posts .recent-image{position:relative;display:block;width:100%;height:220px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#101010;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25);opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.recent-posts .recent-image:after{content:"";display:table;padding-top:20%}.recent-posts .recent-image:before{content:"";position:absolute;width:100%;height:100%;transition:all .5s ease}.recent-posts .recent-content{margin:5px 0}.recent-posts .recent-content .recent-title{margin-bottom:0;font-weight:700}.recent-posts .recent-content .recent-title a{font-size:18px;color:#C9D3E7}.recent-posts .recent-content .recent-date{font-size:12px;color:#707890}.social-profiles{text-align:center}.social-profiles .social-profiles-item{display:inline-block;margin:3px}.social-profiles .social-profiles-link{display:inline-block;line-height:16px;padding:8px 10px;border:1px solid #3E4250;border-radius:3px;color:#3E4250}.social-profiles .social-profiles-link:hover{border-color:#1ABC9C;color:#1ABC9C}.social-profiles .social-profiles-link i{font-size:18px}.widget-instagram .instagram-box{text-align:center}.widget-instagram .instagram-box .instagram-grid{margin-bottom:30px}.widget-instagram .instagram-box .instagram-item{width:33.333%;padding:3px;float:left;overflow:hidden}.widget-instagram .instagram-box .instagram-item a{position:relative;display:block}.widget-instagram .instagram-box .instagram-item a:after{content:"";position:absolute;top:0;display:block;height:100%;width:100%;background:rgba(35,36,39,0.3);transition:.35s}.widget-instagram .instagram-box .instagram-item a:hover:after{background:transparent}.widget-instagram .instagram-box .instagram-prof{font-size:14px;color:#3E4250}.widget-instagram .instagram-box .instagram-prof:hover{text-decoration:underline}.widget-newsletter{text-align:center}.widget-newsletter .newsletter-subtitle{margin-bottom:20px;font-size:18px}.widget-newsletter .newsletter-text{max-width:170px;margin:0 auto 30px;font-size:14px;line-height:19px}.widget-newsletter .newsletter-group-top{position:relative}.widget-newsletter .email-icon{position:absolute;top:50%;left:10px;font-size:22px;transform:translateY(-50%);color:rgba(44,47,54,0.4)}.widget-newsletter .newsletter-email,.widget-newsletter .newsletter-button{width:100%;height:50px;border:none;outline:none}.widget-newsletter .newsletter-email{padding:15px 15px 15px 33px}.widget-newsletter .newsletter-button{margin-top:20px;font-size:14px;font-weight:700;cursor:pointer;color:#fff;background:#2C2F36;transition:.35s}.widget-newsletter .newsletter-button:hover{background:#1ABC9C}.tag-list .tag-item{display:inline-block;margin:3px}.tag-list .tag-item:last-child{margin-right:0}.tag-list .tag-item .tag{display:inline-block;padding:5px 15px;font-size:12px;border-radius:3px;color:#C9D3E7;background:#2C2F36}.tag-list .tag-item .tag:hover{color:#fff;background:#1ABC9C}@media only screen and (min-width: 576px){.widget{padding:40px}}@media only screen and (min-width: 768px){.recent-posts .recent-header{margin-bottom:5px}.recent-posts .recent-image{height:120px}.recent-posts .recent-content .recent-title a{font-size:16px}}@media only screen and (min-width: 992px){.recent-posts{flex-wrap:nowrap}.recent-posts .recent-header{width:auto;margin-right:15px}.recent-posts .recent-image{width:110px}}.pagination{margin:20px 0 40px}.pagination .pagination-list{display:flex;align-items:center;text-align:center}.pagination .pagination-list .older-posts,.pagination .pagination-list .previous-posts,.pagination .pagination-list .newer-posts{display:inline-block;flex-grow:1}.pagination .pagination-list .older-posts .older-link,.pagination .pagination-list .older-posts .previous-link,.pagination .pagination-list .older-posts .newer-link,.pagination .pagination-list .previous-posts .older-link,.pagination .pagination-list .previous-posts .previous-link,.pagination .pagination-list .previous-posts .newer-link,.pagination .pagination-list .newer-posts .older-link,.pagination .pagination-list .newer-posts .previous-link,.pagination .pagination-list .newer-posts .newer-link{display:flex;justify-content:center;align-items:center;padding:20px 35px;font-size:14px;line-height:18px;font-weight:bold;color:#C9D3E7;background:rgba(35,36,39,0.95);transition:.35s}.pagination .pagination-list .older-posts .older-link:hover,.pagination .pagination-list .older-posts .previous-link:hover,.pagination .pagination-list .older-posts .newer-link:hover,.pagination .pagination-list .previous-posts .older-link:hover,.pagination .pagination-list .previous-posts .previous-link:hover,.pagination .pagination-list .previous-posts .newer-link:hover,.pagination .pagination-list .newer-posts .older-link:hover,.pagination .pagination-list .newer-posts .previous-link:hover,.pagination .pagination-list .newer-posts .newer-link:hover{background:rgba(28,29,31,0.95)}.pagination .pagination-list .older-link i{margin-left:10px}.pagination .pagination-list .previous-link i,.pagination .pagination-list .newer-link i{margin-right:10px}@media only screen and (min-width: 768px){.pagination{margin:20px 0}}.footer{padding:50px 0;margin-top:30px;background:#101010}.footer-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:15px;margin-bottom:10px;border-bottom:1px solid #3E4250}.footer-top .logo-text{font-size:16px;font-weight:700;line-height:16px;text-transform:uppercase;letter-spacing:5px;color:#C9D3E7}.footer-top .logo-text:hover{color:#707890}.footer-top .top{display:flex;justify-content:center;align-items:center;width:30px;height:30px;border:1px solid #2C2F36;background-color:#2C2F36;color:#C9D3E7;cursor:pointer;transition:.35s;opacity:.5}.footer-top .top:hover{opacity:1}.footer-bottom{display:flex;align-items:center;flex-wrap:wrap}.footer-bottom .copyright{margin-right:60px}.footer-bottom .copyright p{margin-bottom:0;font-size:13px;color:#707890}.footer-bottom .copyright p a{color:#707890}.footer-bottom .copyright p a:hover{color:#1ABC9C}.footer-bottom .footer-social ul li{display:inline-block;margin-left:15px}.footer-bottom .footer-social ul li:first-child{margin-left:0}.footer-bottom .footer-social ul li a{font-size:13px;font-weight:bold;color:#707890;transition:.35s}.footer-bottom .footer-social ul li a:hover{color:#1ABC9C}.header{margin-bottom:50px;background:#101010}.header,.header-box{height:60px}.header-box{display:flex;flex-direction:row;justify-content:space-between;align-items:center}.header-box .logo-title .logo-text{font-size:16px;font-weight:700;line-height:16px;text-transform:uppercase;letter-spacing:5px;color:#C9D3E7}.header-box .logo-title .logo-text:hover{color:#fff}.nav-menu,.search{position:fixed;top:0;left:0;right:0;bottom:0;transform:scale(0.5);z-index:-1;background:#2C2F36;overflow-y:auto;opacity:0}.nav-menu.active,.search.active{transition:all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);transform:scale(1);z-index:10;opacity:1}.menu-list{max-width:750px;width:100%;margin:5% auto 0;padding:15px;list-style:none;overflow-y:auto}.menu-list .menu-item{text-align:center}.menu-list .menu-link{position:relative;font-size:30px;font-weight:700;line-height:60px;color:#C9D3E7}.menu-list .menu-link:before{content:'';position:absolute;left:0;bottom:0;width:100%;height:5px;pointer-events:none;background:#3DDCA1;transform:scale3d(0, 1, 1);transform-origin:100% 50%;transition:transform 0.35s cubic-bezier(0.8, 0, 0.2, 1)}.menu-list .menu-link:hover:before{transform:scale3d(1, 1, 1);transform-origin:0 50%}.search-close-button{margin:0 auto 50px}.menu-close{margin:20% auto 0}.menu-close,.search-close-button{display:flex;justify-content:center;align-items:center;width:40px;height:40px;font-size:40px;border-radius:50%;border:2px solid #707890;color:#707890;transition:all .35s;cursor:pointer}.menu-close:hover,.search-close-button:hover{border-color:#C9D3E7;color:#C9D3E7}.nav-menu .menu-link,.nav-buttons i.ion{transition:color .35s}.nav-menu .menu-link:hover,.nav-buttons i.ion:hover{color:#fff}.nav-buttons i.ion{margin-left:10px;font-size:20px;vertical-align:middle;color:#C9D3E7;cursor:pointer}.nav-buttons i.ion:first-child{margin-left:0}.search-box{max-width:750px;width:100%;margin:10% auto 0;padding:15px;text-align:center}.search-box .search-text{width:100%;height:60px;margin-bottom:30px;text-align:center;font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c1c1c7;background:#4f505d}.search-box .search-text::placeholder{color:#c1c1c7}.search-results-list{margin:0}.search-results-list .search-item{margin-bottom:15px;list-style:decimal inside;text-align:left;border-bottom:2px solid #323743;white-space:nowrap}.search-results-list .search-item .search-link{display:inline-block;width:100%;padding:15px;font-size:21px;color:#fff;white-space:normal}.search-results-list .search-item .search-link:hover{color:#707890}.search-results-list .search-no-item{font-size:18px;color:#e02f40;list-style:none}.article-first{margin-bottom:30px;background:#101010}.article-first .article-image-first{position:relative;display:flex;align-items:center;min-height:450px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#101010;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25)}.article-first .article-image-first:before{content:"";display:table;padding-top:50%}.article-first .article-content-first{padding:20px;color:#C9D3E7}.article-first .article-content-first .article-tag .tag{font-size:12px}.article-first .article-content-first .article-date .date{font-size:12px;color:rgba(201,211,231,0.8)}.article-first .article-content-first .article-title{margin-bottom:20px;font-size:30px;line-height:30px;font-weight:normal}.article-first .article-content-first .article-title a{color:#C9D3E7;transition:.35s}.article-first .article-content-first .article-excerpt{max-width:450px;margin-bottom:30px;font-size:14px;line-height:23px}.article-first .article-content-first .button{font-size:14px;font-weight:700;border:1px solid #c9d3e7;color:#C9D3E7;transition:.35s}.article-first .article-content-first .button:hover{border:1px solid #1ABC9C;background:#1ABC9C;color:#fff}.article{display:flex;margin-bottom:25px}.article:hover .article-image .image-overlay-text{opacity:1}.article:hover .article-image .image-overlay{opacity:.5;width:100%}.article .article-box{padding-bottom:20px;border-bottom:2px solid #3E4250}.article .article-head{background:#101010}.article .article-image{position:relative;display:block;margin-bottom:20px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#101010;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25)}.article .article-image:before{content:"";display:table;padding-top:75%}.article .article-image .image-overlay{position:absolute;top:0;right:0;bottom:0;left:0;width:0;height:100%;background-color:rgba(0,0,0,0.8);opacity:0;transition:all 0.4s ease}.article .article-image .image-overlay-text{position:absolute;top:50%;left:50%;font-size:110px;text-align:center;letter-spacing:2px;color:#C9D3E7;transform:translate(-50%, -50%);transition:all 0.4s ease 0.3s;opacity:0}.article .article-content .article-info{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:5px}.article .article-content .article-info .article-date{font-size:12px;color:rgba(201,211,231,0.8)}.article .article-content .article-info .article-tag .tag{display:inline-block;padding:2px 5px;margin-right:5px;font-size:12px;line-height:18px;font-weight:bold;border:1px solid #1ABC9C;border-radius:3px;text-transform:capitalize;color:#1ABC9C;transition:.35s}.article .article-content .article-info .article-tag .tag:last-child{margin-right:0}.article .article-content .article-info .article-tag .tag:hover{background:#1ABC9C;color:#fff}.article .article-content .article-title{margin-bottom:5px}.article .article-content .article-title a{font-size:24px;color:#C9D3E7}.article .article-content .article-excerpt{margin-bottom:0;font-size:15px;line-height:25px;color:#707890}.article-box{position:relative;overflow:hidden}.article-first .article-image-first,.article-box .article-image{position:relative;opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.article-first.reveal-in .article-image-first,.article-box.reveal-in .article-image{opacity:1}@media only screen and (min-width: 576px){.article-first .article-content-first .article-title{font-size:45px;line-height:45px}.article-first .article-content-first .article-excerpt{margin-bottom:50px}.menu-list .menu-link{font-size:50px;line-height:80px}.menu-list .menu-link:before{height:8px}.search-box .search-text{height:80px;margin-bottom:30px;font-size:24px}}@media only screen and (min-width: 768px){.article-first .article-content-first{padding:60px 40px 0}}@media only screen and (min-width: 992px){.nav-menu{position:relative;display:block;transform:none;opacity:1;z-index:10;background:transparent}.nav-menu .menu-list{padding:0;margin:0}.nav-menu .menu-list .menu-item{display:inline-block;margin:0 15px 0 0}.nav-menu .menu-list .menu-item:last-child{margin-right:0}.nav-menu .menu-list .menu-link{font-size:13px;font-weight:700;text-transform:uppercase;line-height:19px}.nav-menu .menu-list .menu-link:before{content:none}.nav-menu .menu-close{display:none}.nav-menu .menu-link,.nav-buttons i.ion{transition:color .35s}.nav-menu .menu-link:hover,.nav-buttons i.ion:hover{color:#fff}}.post{margin-bottom:20px}.post-image-box{background:#101010}.post-image-box.reveal-in .post-image{opacity:1}.post-image{min-height:430px;margin-bottom:30px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#101010;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25);position:relative;opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.post-image:after{content:"";display:table;width:100%;padding-top:50%}.post-head,.post-content{background:rgba(35,36,39,0.95)}.post-content{padding:40px 15px;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25)}.post-head,.post-body{margin-bottom:20px;border-bottom:1px solid #3E4250}.post-head{padding-bottom:30px}.post-head .post-tag{margin-bottom:20px;text-align:center}.post-head .post-tag .tag{display:inline-block;padding:5px 15px;margin-right:5px;font-size:12px;line-height:18px;font-weight:bold;border:1px solid #1ABC9C;text-transform:capitalize;color:#1ABC9C;transition:.35s}.post-head .post-tag .tag:last-child{margin-right:0}.post-head .post-tag .tag:hover{background:#1ABC9C;color:#fff}.post-head .post-title{font-size:28px;text-align:center;font-weight:normal;line-height:28px;margin-bottom:5px}.post-head .post-date span{font-size:12px}.post-info,.post-info-author{display:flex;justify-content:center;align-items:center;flex-wrap:wrap}.post-info .post-info-author .info-author-avatar{display:inline-block;width:32px;height:32px;margin-right:10px;border-radius:50%;background-position:center;background-size:cover;background-repeat:no-repeat}.post-info .post-info-author .info-author-name,.post-info .post-info-author span{font-size:12px;text-transform:uppercase}.post-info .post-info-author span{margin-right:10px}.post-info .post-info-author .info-author-name{position:relative;padding-right:20px;margin-right:15px;color:#C9D3E7}.post-info .post-info-author .info-author-name:after{content:"";position:absolute;top:50%;right:0;transform:translateY(-50%);display:block;width:2px;height:12px;background:#3E4250}.post-body{padding-bottom:20px}.post-share{padding:10px 0}.post-share .share-item{display:inline-block;padding-right:15px}.post-share .share-item a{color:#3E4250}.post-share .share-item a:hover{color:#1ABC9C}.post-share .share-item a i.ion{font-size:20px}.post-navigation{display:flex;flex-wrap:wrap;margin-top:30px}.prev,.next{flex-basis:100%;padding:15px;background:#26272B}.prev:hover,.next:hover{background:#1f2023}.prev:hover .post-nav-title,.next:hover .post-nav-title{color:#1ABC9C;transition:.35s}.prev .post-nav-arrow,.next .post-nav-arrow{font-size:14px;color:#C9D3E7}.prev .post-nav-title,.next .post-nav-title{font-size:18px;color:#C9D3E7;transition:.35s}.prev{margin-bottom:10px}.prev,.next{text-align:center}.comments{padding:0 15px;background:#232427}@media only screen and (min-width: 576px){.post-content{padding:40px}.post-head .post-title{font-size:43px;line-height:43px;margin-bottom:10px}.post-navigation{display:flex;justify-content:space-between;flex-wrap:nowrap}.prev,.next{flex-basis:48%;padding:20px}.prev .post-nav-title,.next .post-nav-title{font-size:21px}.prev{text-align:left;margin-bottom:0}.next{text-align:right}.comments{padding:0 40px}}.page{margin-bottom:20px}.page-image-box{background:#101010}.page-image-box.reveal-in .page-image{opacity:1}.page-image{min-height:230px;margin-bottom:30px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#101010;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25);opacity:0;transition:all 1s cubic-bezier(0.6, 0.3, 0, 1)}.page-image:after{content:"";display:table;width:100%;padding-top:50%}.page-content{padding:40px 15px;box-shadow:0 9px 18px 0 rgba(0,0,0,0.25);background:rgba(35,36,39,0.95)}.page-head{padding-bottom:30px}.page-head .page-title{font-size:28px;text-align:center;font-weight:normal;line-height:28px;margin-bottom:0}.page-head,.page-body{margin-bottom:20px;border-bottom:1px solid #3E4250}.page-body{padding-bottom:20px}@media only screen and (min-width: 576px){.page-content{padding:40px}.page-head .page-title{font-size:43px;line-height:43px;margin-bottom:10px}}.tags-list{display:flex;flex-wrap:wrap;margin:40px 0;padding:0;list-style:none}.tags-list .tags-item{margin:5px}.tags-list .tags-link{display:inline-block;padding:7px 12px;font-size:14px;border-radius:4px;color:#C9D3E7;font-weight:700;background:#2C2F36}.tags-list .tags-link:hover{color:#fff;background:#1ABC9C}.tags-title{margin-bottom:5px}.tags-group{margin-bottom:30px}.text-left{text-align:left}.text-right{text-align:right}.text-center{text-align:center}.text-justify{text-align:justify}.block{display:block}.inline-block{display:inline-block}.inline{display:inline}.vertical-center{display:flex;align-items:center;justify-content:center}.show{display:block !important}.hide{display:none !important}.invisible{visibility:hidden}.float-left{float:left}.float-right{float:right}.no-padding{padding:0}.no-margin{margin:0}.clearfix::after,.clearfix ::before{content:"";display:table;clear:both}.list-reset{list-style-type:none;margin:0;padding:0}.screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}
+
+  </style>
+</head>
+
+
+<body>
+
+  <div class="preloader">
+  <div class="loader">
+    <span>Loading</span>
+  </div>
+</div> <!-- /.loader -->
+  <header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <div class="header-box">
+          <div class="logo-title">
+            <a href="/" class="logo-text">ALU</a>
+          </div>
+
+          <nav class="nav-menu">
+            <i class="menu-close ion ion-ios-close"></i>
+            <ul class="menu-list">
+              <li class="menu-item"><a href="/" class="menu-link">Home</a></li>
+              
+                
+              
+                
+              
+              <li class="menu-item"><a href="/about/" class="menu-link">About</a></li>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              <li class="menu-item"><a href="/resource/" class="menu-link">Resource</a></li>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              <li class="menu-item"><a href="/timeline/" class="menu-link">Timeline</a></li>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </ul>
+          </nav>
+          <div class="nav-buttons">
+            <i class="menu-button d-hide ion ion-ios-menu"></i>
+            <i class="search-button ion ion-ios-search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search">
+    <div class="search-box">
+      <i class="search-close-button ion ion-ios-close"></i>
+      <label for="js-search-input" class="screen-reader-text"></label>
+      <input type="text" id="js-search-input" class="search-text" autocomplete="off" placeholder="Search Something...">
+      <ol id="js-results-container" class="search-results-list"></ol>
+    </div>
+  </div>
+</header> <!-- /.header -->
+
+
+      <div class="container">
+	<div class="row">
+		<div class="col col-12">
+			<div class="post-image-box">
+				<div class="post-image" style="background-image: url(/img/pink.jpg)"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<article class="col col-12 col-t-8 post">
+			<div class="post-content">
+
+				<div class="post-head">
+					
+					<div class="post-tag">
+						
+						<a href="/tags#Note" class="tag">Note</a>
+						
+					</div>
+					
+					<h1 class="post-title">链接、加载和库</h1>
+					<div class="post-info">
+						<div class="post-info-author">
+							<div class="info-author-avatar" style="background-image: url(/img/profile.jpg)"></div>
+							<span>by</span>
+							<span class="info-author-name">alu</span>
+						</div>
+						<div class="post-date">
+							<span>
+								<time datetime="2021-12-15T10:05:55+00:00">Dec 15, 2021</time>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="post-body">
+					<h2 id="1-温故而知新">1. 温故而知新</h2>
+
+<p>运行库使用操作系统提供的系统调用接口，<strong>系统调用接口在实现中往往以软件中断的方式提供</strong>。比如Linux使用0x80号中断作为系统调用接口，Windows使用0x2E号中断作为系统调用接口。</p>
+
+<p>虚拟内存的实现依靠硬件的支持，采用MMU（Memory Management Unit）进行页映射。程序的虚拟内存空间分页加载到物理内存中，<strong>页错误（Page Fault）时由操作系统接管，并将页加载进物理内存</strong>。CPU发出的指令为虚拟地址，经MMU转换后变成物理地址。</p>
+
+<p><strong>一个标准的线程由线程ID、当前指令指针（PC）、寄存器集合和堆栈组成。</strong></p>
+
+<ul>
+  <li>线程私有数据：1. 局部变量；2. 函数的参数；3. 线程本地存储</li>
+  <li>线程之间共享的数据：1. 全局变量；2. 堆上的数据；3. 函数里的静态变量；4. 程序代码，任何线程都有权利读取并执行当前进程可执行的任何代码；5. 打开的文件，A线程打开的文件可由B线程读写</li>
+</ul>
+
+<p>把单指令的操作称为原子的（Atomic），因为无论如何，单指令的执行是不会被打断的。</p>
+
+<p>同步的最常见方式是使用锁。二元信号量（Binary Semaphore）是最简单的一种锁，它只有两种状态：占用与非占用。<strong>它适合只能被唯一线程独占访问的资源。</strong>当二元信号量处于非占用状态时，第一个试图获取该二元信号量的线程会获得该锁，并将二元信号量置为占用状态，此后其他的所有试图获取该二元信号量的线程将会等待，直到该锁被释放。互斥锁（Mutex）和二元信号量类似，资源仅同时允许一个线程访问，但和信号量不同的是，信号量在整个系统里可以被任意线程获取和释放，也就是说，同一个信号量可以被一个线程获取之后由另一个线程释放。而互斥锁要求哪个线程获取了互斥锁，哪个线程就要负责释放这个锁。</p>
+
+<p>读写锁有两种获取方式，<strong>共享的（shared</strong>）和<strong>独占的（exclusive）</strong>。当锁处于自由状态时，试图以任何一种方式获取锁都能成功，并将锁置于对应的状态。如果锁处于共享状态，其他线程以共享方式获取锁仍然会成功，此时锁分配给了多个线程。然后，如果其他线程试图以独占的方式获取已经处于共享状态的锁，那么它将必须等待锁被所有的线程释放。</p>
+
+<p>条件变量（Condition Variable）作为一种同步手段，作用类似于一个栅栏。对于条件变量，线程可以有两种操作，首先线程可以等待条件变量，一个条件变量可以被多个线程等待。其次，线程可以唤醒条件变量，此时某个或所有等待此条件变量的线程都会被唤醒。也就是说，<strong>使用条件变量可以让许多线程一起等待某个事件的发生，所有线程可以一起恢复执行。</strong></p>
+
+<p>一个函数要成为可重入的，必须具有如下几个特点：</p>
+
+<ul>
+  <li>不使用任何静态变量或全局的非const变量</li>
+  <li>不返回任何静态变量或全局的非const变量的指针</li>
+  <li>仅依赖于调用方提供的参数</li>
+  <li>不依赖任何单个资源的锁</li>
+  <li>不调用任何不可重入的函数</li>
+</ul>
+
+<p>可重入是并发安全的强力保障，一个可重入的函数可以在多线程环境下安全使用。</p>
+
+<p>volatile关键字可以阻止编译器进行过度优化</p>
+
+<ul>
+  <li>阻止编译器为了提高速度将一个变量缓存到寄存器内而不写回</li>
+  <li>阻止编译器调整操作volatile变量的指令顺序</li>
+</ul>
+
+<h2 id="2-编译和链接">2. 编译和链接</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">➜ gcc hello.c</code></pre></figure>
+
+<p>上述过程分解为四个步骤，1. 预处理；2. 编译；3. 汇编；4. 链接。</p>
+
+<h3 id="预编译">预编译</h3>
+
+<p>第一步预编译的过程相当于如下命令</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">➜ gcc <span class="nt">-E</span> hello.c <span class="nt">-o</span> hello.i</code></pre></figure>
+
+<p>预编译过程主要处理那些源代码文件中的以<code class="language-plaintext highlighter-rouge">#</code>开头的预编译指令。比如<code class="language-plaintext highlighter-rouge">#include</code>、<code class="language-plaintext highlighter-rouge">#define</code>等，主要处理规则如下：</p>
+
+<ul>
+  <li>将所有的<code class="language-plaintext highlighter-rouge">#define</code>删除，并且展开所有的宏定义</li>
+  <li>处理所有条件预编译指令，<code class="language-plaintext highlighter-rouge">#if</code>、<code class="language-plaintext highlighter-rouge">#ifdef</code>、<code class="language-plaintext highlighter-rouge">#elif</code>、<code class="language-plaintext highlighter-rouge">#else</code>、<code class="language-plaintext highlighter-rouge">#endif</code>等</li>
+  <li>处理<code class="language-plaintext highlighter-rouge">#include</code>预编译指令，将被包含的文件插入到预编译指令的位置。</li>
+  <li>删除注释</li>
+  <li>添加行号和文件名标识，以便于编译时产生调试用的行号信息以及用于编译时产生编译错误或警告时能显示行号。</li>
+  <li>保留所有<code class="language-plaintext highlighter-rouge">#pragma</code>编译器指令</li>
+</ul>
+
+<h3 id="编译">编译</h3>
+
+<p>编译过程相当于如下命令</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">➜ gcc <span class="nt">-S</span> hello.i <span class="nt">-o</span> hello.s</code></pre></figure>
+
+<p>编译过程进行词法分析、语法分析、语义分析以及优化后产生汇编代码文件。直观来说，编译器将高级语言翻译成低级语言。</p>
+
+<p>词法分析产生Token，将Token分成关键字、标识符、字面量和特殊符号。语法分析器对Token进行语法分析，产生语法树。语义分析处理声明和类型的转换，比如将一个浮点型的表达式赋值给一个整形表达式，语义分析就需要完成隐式转化的步骤。经过语义分析后，整个语法树的表达式都被标识了类型，或者是在语法树的某些节点前添加了隐式转换的节点。</p>
+
+<p>编译器前端负责产生机器无关的中间代码，编译器后端将中间代码转换成目标机器代码。编译器后端主要包括代码生成器和目标代码优化器，代码生成器将中间代码转换成目标机器代码，目标代码优化器对目标代码进行优化，比如寻找合适的寻址方式、使用位移来代替乘法运算、删除多余的指令等。</p>
+
+<h3 id="汇编">汇编</h3>
+
+<p>汇编器将汇编代码转变成机器可以执行的指令。</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">➜ as hello.s <span class="nt">-o</span> hello.o
+➜ gcc <span class="nt">-c</span> hello.s <span class="nt">-o</span> hello.o</code></pre></figure>
+
+<p>上述两种方式都可以执行汇编过程。</p>
+
+<h3 id="链接">链接</h3>
+
+<p>在C语言中，最小的单位是变量和函数，若干变量和函数组成一个模块，存放在一个<code class="language-plaintext highlighter-rouge">.c</code>的源代码文件中。</p>
+
+<p>静态语言的C/C++模块之间通信有两种方式，1. 模块之间函数的调用；2. 模块之间的变量访问。函数访问需知道目标函数的地址，变量访问也需要知道目标变量的地址，所以这两种方式都可以归结为一种方式，就是模块间符号的引用。</p>
+
+<p>链接的主要内容就是把各个模块之间相互引用的部分都处理好，使得各个模块之间能够正确地衔接。</p>
+
+<p>链接过程主要包括地址和空间分配、符号决议和重定位等。</p>
+
+<h2 id="3-目标文件里有什么">3. 目标文件里有什么</h2>
+
+<p>目标文件是源代码编译汇编后但未进行链接的那些中间文件，在Windows下的<code class="language-plaintext highlighter-rouge">.obj</code>和Linux下的<code class="language-plaintext highlighter-rouge">.o</code>文件。</p>
+
+<p>可执行文件格式，包括Windows下的PE（Portable Executable）以及Linux下的ELF（Executable Linkable Format）。不止可执行文件（Windows下的<code class="language-plaintext highlighter-rouge">.exe</code>和Linux下的ELF可执行文件）是可执行文件格式，动态链接库（Windows下的<code class="language-plaintext highlighter-rouge">.dll</code>和Linux下的<code class="language-plaintext highlighter-rouge">.so</code>）以及静态链接库（Windows下的<code class="language-plaintext highlighter-rouge">.lib</code>和Linxu下的<code class="language-plaintext highlighter-rouge">.a</code>）文件都按照可执行文件格式存储。</p>
+
+<h3 id="elf">ELF</h3>
+
+<p>目标文件中包含编译后的机器指令代码、数据、符号表、调试信息等，在目标文件中以段的形式存储。</p>
+
+<p>机器指令被放在代码段里，常见的名字有<code class="language-plaintext highlighter-rouge">.code</code>或者<code class="language-plaintext highlighter-rouge">.text</code>，全局变量和局部静态变量数据放在数据段里，已初始化的全局变量和局部静态变量都保存在<code class="language-plaintext highlighter-rouge">.data</code>段，未初始化的全局变量和局部静态变量一般放在<code class="language-plaintext highlighter-rouge">.bss</code>段里。</p>
+
+<p>ELF文件的开头是一个文件头，描述了整个文件的属性，包括文件是否可执行、是静态链接还是动态链接及入口地址、目标硬件等信息。文件头还包括一个段表，描述文件中各个段的偏移位置以及段的属性等。</p>
+
+<p>利用<code class="language-plaintext highlighter-rouge">objdump</code>提取目标文件中的信息，</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">➜ objdump <span class="nt">-s</span> <span class="nt">-d</span> SimpleSection.o</code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">s</code>表示将所有段内容以十六进制的方式打印出来，<code class="language-plaintext highlighter-rouge">d</code>参数可以将所有包含指令的段进行反编译。</li>
+</ul>
+
+<p>gcc提供一个扩展机制，使得程序员可以指定变量所处的段：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">__attribute__</span><span class="p">((</span><span class="n">section</span><span class="p">(</span><span class="s">"FOO"</span><span class="p">)))</span> <span class="kt">int</span> <span class="n">global</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="n">__attribute__</span><span class="p">((</span><span class="n">section</span><span class="p">(</span><span class="s">"BAR"</span><span class="p">)))</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{}</span></code></pre></figure>
+
+<p>ELF文件的段结构由段表决定，编译器、链接器和装载器依靠段表来定位和访问各个段的属性。段表是一个以<code class="language-plaintext highlighter-rouge">Elf32_Shdr</code>结构体为元素的数组，数组元素的个数等于段的个数。</p>
+
+<h3 id="链接的接口符号">链接的接口：符号</h3>
+
+<p>在链接中，目标文件之间相互拼合实际上是目标文件之间对地址的引用，即对函数和变量的地址的引用。每一个目标文件都会有一个相应的符号表，这个表里记录了目标文件中所用到的所有符号。每个定义的符号有一个相对应的值，叫做符号值，对于变量和函数来说，符号值就是它们的地址。</p>
+
+<p>符号可以分为：</p>
+
+<ol>
+  <li>定义在目标文件中的全局符号，可以被其他文件引用；</li>
+  <li>在本目标文件中引用的全局符号，没有定义在本文件中，被称为外部符号；</li>
+  <li>局部符号，只在编译单元内可见；</li>
+</ol>
+
+<p>符号表是ELF文件中的一个段，段名一般叫做<code class="language-plaintext highlighter-rouge">.symtab</code>。符号表是一个<code class="language-plaintext highlighter-rouge">Elf32_Sym</code>结构体的数组，每一个<code class="language-plaintext highlighter-rouge">Elf32_Sym</code>对应一个符号。</p>
+
+<p>符号修饰（Name Decoration）和符号改编（Name Mangling）机制是为了保证相同名称的变量编译后的符号不同，以避免冲突。<strong>不同的编译器采用不同的符号修饰方式，导致由不同编译器编译产生的目标文件无法正常相互链接。</strong></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#ifdef __cplusplus
+</span><span class="k">extern</span> <span class="s">"C"</span> <span class="p">{</span>
+<span class="cp">#endif
+</span>
+<span class="c1">// c code or cpp code</span>
+
+<span class="cp">#ifdef __cplusplus
+</span><span class="p">}</span>
+<span class="cp">#endif</span></code></pre></figure>
+
+<h2 id="4-静态链接">4. 静态链接</h2>
+
+<p>对于链接器来说，整个链接过程中，就是将几个输入目标文件加工后合并成一个输出文件。现在的链接器一般都将目标文件的各个段合并起来放到最终的可执行文件中。</p>
+
+<p>两步链接（Two-pass Linking）：1. 空间与地址的分配：扫描所有输入目标文件，获取各个段的长度、属性和位置，并将所有的符号定义和符号引用统一放到一个全局符号表。在这一步中，链接器能够获得所有输入目标文件的段长度，并将它们合并，计算出输出文件中各个段合并后的位置和长度，建立映射关系；2. 符号解析和重定位，调整代码中的地址。第二步是链接过程的核心，特别是重定位过程。</p>
+
+<p>在链接之后，可执行文件中使用的地址已经是程序在进程中的虚拟地址。</p>
+
+<h3 id="符号解析和重定位">符号解析和重定位</h3>
+
+<p>链接器在完成地址和空间分配之后就可以确定所有符号的虚拟地址了，然后链接器就可以根据符号的地址对每个需要重定位的指令进行地址修正。</p>
+
+<p>对于可重定位的ELF文件来说，必须包含有重定位表。每一个要被重定位的地方叫一个重定位入口，在重定位表中记录了重定位入口的偏移。链接时根据其他目标文件中的信息修改重定位入口处的符号地址。</p>
+
+<p>重定位的过程伴随着符号的解析。重定位过程中，每个重定位的入口都是对一个符号的引用，那么当链接器需要对某个符号的引用进行重定位时，它就要确定这个符号的目标地址。这时链接器就会去查找由所有输入目标文件的符号表组成的全局符号表，找到相应的符号后进行重定位。</p>
+
+<h3 id="common块">Common块</h3>
+
+<p>现在的编译器和链接器都支持COMMON块的机制，这种机制最早来源于Fortran，早期的Fortran没有动态分配空间的机制，程序员必须事先声明它所需要的临时使用空间的大小，Fortran把这种空间叫Common块，当不同的目标文件需要的Common块空间大小不一致时，以最大的那块为准。</p>
+
+<p>弱符号机制允许同一个符号的定义存在于多个文件中。当多个以上弱符号类型不一致，且没有同名强符号时，按照所占空间最大的那个弱符号分配空间。</p>
+
+<p>未初始化的全局变量是典型的弱符号。</p>
+
+<p>GCC的<code class="language-plaintext highlighter-rouge">-fno-common</code>允许把所有未初始化的全局变量不以Common块的形式处理，或者使用<code class="language-plaintext highlighter-rouge">__attribute__</code>扩展：</p>
+
+<blockquote>
+  <p>int global __attribute__((nocommon));</p>
+</blockquote>
+
+<h3 id="c相关问题">C++相关问题</h3>
+
+<h3 id="重复代码消除">重复代码消除</h3>
+
+<p>模版、外部内联函数、虚函数表都有可能在不同的编译单元里生成相同的代码。</p>
+
+<p>有效的做法是，将每一个模版的实例代码都单独放在一个段里，每个段里只包含一个模版实例，同一个模版实例的段名保持一致，链接器在看到重复模版实例的段名时，只保存其中一个。虚函数表和外部内联函数都可以这样处理。</p>
+
+<p>可能有问题的地方是，同样名称的模版实例可能所包含的内容不同，例如编译不同的编译单元时采用了不同的优化等级。</p>
+
+<h3 id="函数级别链接">函数级别链接</h3>
+
+<p>一个目标文件中可能包含很多函数和变量，链接一个目标文件，可能将其中无用的部分也链接进来。避免这种无用代码引入，可以使用函数级别链接，将每个函数保存在单独的段中，只引用必须要用的段，抛弃没有用的函数。</p>
+
+<p>代价是编译链接过程减慢，段增加使得重定位变得复杂。</p>
+
+<p>在gcc中可以使用<code class="language-plaintext highlighter-rouge">-ffunction-sections</code>和<code class="language-plaintext highlighter-rouge">-fdata-sections</code>开启函数级别链接。</p>
+
+<h3 id="全局构造和析构">全局构造和析构</h3>
+
+<p>在<code class="language-plaintext highlighter-rouge">main</code>函数调用之前，为了程序能够顺利执行，首先需要初始化进程执行环境。C++的全局对象构造函数在<code class="language-plaintext highlighter-rouge">main</code>之前执行，C++全局对象的析构函数在<code class="language-plaintext highlighter-rouge">main</code>之后执行。</p>
+
+<h3 id="链接过程控制">链接过程控制</h3>
+
+<p>用链接控制脚本控制链接过程。以<code class="language-plaintext highlighter-rouge">ld</code>链接器为例，如果没有指定链接控制脚本，则会使用默认链接脚本。</p>
+
+<p><code class="language-plaintext highlighter-rouge">ld</code>链接器的链接脚本继承于AT&amp;T链接器命令语言的语法。</p>
+
+<h2 id="5-可执行文件的装载与进程">5. 可执行文件的装载与进程</h2>
+
+<p>每个程序被运行起来之后，它将拥有独立的虚拟地址空间。虚拟地址空间的大小由计算机的硬件平台决定，比如32位的硬件平台的虚拟地址空间为4G。从程序的角度，可以通过C语言程序的指针所占的空间来计算虚拟地址空间的大小。</p>
+
+<p>程序装载时，首先将程序中的代码和数据以页为单位划分为若干页，在程序运行时，操作系统发现某个页不在内存中，就会将对应页加载到内存中。</p>
+
+<p>创建一个进程，最开始只有三件事情需要做：</p>
+
+<ol>
+  <li>创建一个独立的虚拟空间；</li>
+  <li>读取可执行文件头，并建立虚拟空间与可执行文件的映射关系；</li>
+  <li>将CPU的指令寄存器设置为可执行文件的入口地址，启动执行。</li>
+</ol>
+
+<p>在做完了这些准备工作之后，程序开始执行，由于可执行文件没有装载到内存，所以会报页错误，然后控制权交还给操作系统，由操作系统完成物理内存的分配。</p>
+
+<p>进程虚拟空间地址：操作系统通过给进程空间划分出一个个VMA来管理进程的虚拟空间；基本原则是相同权限属性的、有相同映像文件的映射成一个VMA；一个进程基本上可以分为如下几种VMA区域：</p>
+
+<ol>
+  <li>代码VMA，权限可读、可执行；有映像文件。</li>
+  <li>数据VMA，权限可读写、可执行；有映像文件。</li>
+  <li>堆VMA，权限可读写、可执行；无映像文件，匿名，可向上扩展。</li>
+  <li>栈VMA，权限可读写、不可执行；无映像文件，匿名，可向下扩展。</li>
+</ol>
+
+<p>进程初始化时，会将环境变量以及进程运行的参数放到栈VMA的位置，包括参数的个数以及各个参数。进程启动之后，会将栈中的初始化信息传递给<code class="language-plaintext highlighter-rouge">main</code>函数，也就是我们熟知的<code class="language-plaintext highlighter-rouge">argc</code>和<code class="language-plaintext highlighter-rouge">argv</code>这两个参数。</p>
+
+<h3 id="linux内核装载elf简介">Linux内核装载ELF简介</h3>
+
+<p>在Linux系统的<code class="language-plaintext highlighter-rouge">bash</code>下输入一个命令执行某个ELF可执行文件时，首先在用户层面，<code class="language-plaintext highlighter-rouge">bash</code>进程会调用<code class="language-plaintext highlighter-rouge">fork</code>系统调用创建一个新的进程，然后新的进程调用<code class="language-plaintext highlighter-rouge">execve</code>系统调用执行指定的ELF文件。</p>
+
+<p><code class="language-plaintext highlighter-rouge">execve</code>系统调用被定义在<code class="language-plaintext highlighter-rouge">unistd.h</code>中，它的原型如下：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">execve</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span></code></pre></figure>
+
+<p>它的三个参数分别是被执行的程序文件名、执行参数和环境变量。</p>
+
+<p>在进行<code class="language-plaintext highlighter-rouge">execve</code>系统调用之后，Linux内核就开始进行真正的装载工作。</p>
+
+<p>首先会读取文件的前128个字节，判断文件的类型，如ELF文件，Java文件，或者bash脚本文件等。然后做如下操作：</p>
+
+<ol>
+  <li>检查ELF可执行文件格式的有效性；</li>
+  <li>寻找动态链接的<code class="language-plaintext highlighter-rouge">.interp</code>段，设置动态链接器路径；</li>
+  <li>根据ELF可执行文件的程序头表的描述，对ELF文件进行映射，比如代码、数据、只读数据；</li>
+  <li>初始化ELF进程环境；</li>
+  <li>将系统调用的返回地址修改成ELF可执行文件的入口地址。</li>
+</ol>
+
+<p>当系统调用返回时，由于返回地址已经被改成了ELF程序的入口地址，所以返回到用户态时，EIP寄存器直接跳转到ELF程序的入口地址，新的程序开始运行，ELF可执行文件装载完成。</p>
+
+<h2 id="6-动态链接">6. 动态链接</h2>
+
+<p>把链接这个过程推迟到了运行时进行，这就是动态链接的基本思想。</p>
+
+<p>动态链接可以使得多个进程依赖同一个加载到内存中的动态库，大大降低了内存的占用。</p>
+
+<h3 id="动态链接的基本实现">动态链接的基本实现</h3>
+
+<p>动态链接是把程序按照模块拆分成各个相对独立的部分，在程序运行时才将它们链接在一起形成一个完整的程序，而不是像静态链接一样把所有的程序模块都链接成一个单独的可执行文件。</p>
+
+<p>在Linux下，ELF动态链接文件被称为动态共享对象（Dynamic Shared Object），简称共享对象，它们一般都是以<code class="language-plaintext highlighter-rouge">.so</code>为扩展名的一些文件；而在Windows系统中，动态链接文件被称为动态链接库（Dynamic Linking Library），它们一般都是以<code class="language-plaintext highlighter-rouge">.ddl</code>为扩展名的文件。</p>
+
+<p>当程序被装载的时候，系统的动态链接器会将程序所需要的所有动态链接库装载到进程的地址空间，并且将程序中所有未决议的符号绑定到相应的动态链接库中，并进行重定位工作。</p>
+
+<p>链接器处理目标文件时，会确定函数的性质，如果是该函数定义于静态目标模块中，则链接器会对函数进行地址重定位；如果该函数定义在动态库中，链接器就会将这个符号的引用标记为一个动态链接的符号，不对它进行地址重定位，把这个过程留到装载时再进行。</p>
+
+<h3 id="动态链接程序运行时地址空间分布">动态链接程序运行时地址空间分布</h3>
+
+<p>对于静态链接的可执行文件来说，整个进程只有一个文件要被映射，那就是可执行文件本身。对于动态链接来说，除了可执行文件本身之外，还有它所依赖的共享目标文件。</p>
+
+<p>共享对象的最终装载地址在编译时是不确定的。在装载时，装载器根据当前地址空间的空闲情况，动态分配一块足够大小的虚拟空间地址给相应的共享对象。</p>
+
+<p>动态链接模块被装载映射至虚拟空间后，指令部分是在多个进程之间共享的。如果在装载时对动态库进行重定位，那么对于每个进程，都要保存一份重定位信息的副本。</p>
+
+<p>为了使指令部分可以在多个进程之间共享，所以把指令中需要重定位的部分分离出来，放到数据部分，这样指令部分就可以保持不变，数据部分可以在每个进程中拥有一个副本，这种方案目前被称为地址无关码。</p>
+
+<p>动态链接比静态链接要灵活得多，但是以牺牲一部分性能为代价。动态链接比静态链接慢的主要原因是动态链接对于全局数据和静态数据的访问都要进行复杂的GOT定位，然后间接寻址。另一个运行速度慢的原因是，程序开始执行时，动态链接器在运行时需要完成一次链接工作。</p>
+
+<p>加载引用了动态库中符号的可执行文件时，操作系统会先将可执行文件加载进内存，然后将动态链接器加载进内存，之后将返回地址设置为动态链接器的入口地址。动态链接器接管程序之后，会将可执行文件所需的动态库加载进内存，然后再将程序的控制权交还给可执行文件。</p>
+
+<p>在ELF文件中，<code class="language-plaintext highlighter-rouge">.interp</code>段记录了动态链接器的路径，例如在Linux下，<code class="language-plaintext highlighter-rouge">.interp</code>段的内容是<code class="language-plaintext highlighter-rouge">/lib/ld-linux.so.2</code>。</p>
+
+<h3 id="动态链接的步骤">动态链接的步骤</h3>
+
+<p>动态链接基本分为三步，1. 启动动态链接器本身；2. 装载所有需要的共享对象；3. 重定位和初始化。</p>
+
+<p>动态链接器本身也是一个共享对象。但是动态链接器本身不依赖其他任何共享对象，其次动态链接器本身所需要的全局和静态变量的重定位工作由它本身完成。</p>
+
+<p>完成动态链接器的初始化之后，动态链接器将可执行文件和链接器本身的符号表都合并到一个符号表中，称为全局符号表。然后链接器开始寻找可执行文件依赖的共享对象。由于加载的共享对象还可能依赖别的共享对象，所以整个加载过程可以看作是一个图的遍历。当一个新的共享变量被装载进来之后，它的符号表会被合并到全局符号表中。</p>
+
+<p><strong>全局符号介入</strong>：当一个符号需要被加入全局符号表时，如果相同的符号名已经存在，则后加入的符号被忽略。</p>
+
+<p>当上述步骤完成后，动态链接器开始遍历可执行文件和共享对象的重定位表，并进行地址重定位。</p>
+
+<h3 id="linux动态链接的实现">Linux动态链接的实现</h3>
+
+<p>在Linux下，操作系统通过 <code class="language-plaintext highlighter-rouge">execve()</code>系统调用将可执行文件加载到进程的地址空间中。对于不需要动态连接的程序，加载完可执行文件之后，内核将控制权限转让给可执行文件的入口函数。对于需要进行动态链接的程序，会先调用动态链接器处理动态库的加载和符号的重定位等工作。Linux的ELF动态链接器是glibc的一部分，它的源码位于glibc的源代码的<code class="language-plaintext highlighter-rouge">elf</code>目录下。</p>
+
+<h3 id="显式运行时链接">显式运行时链接</h3>
+
+<p>打开动态库<code class="language-plaintext highlighter-rouge">dlopen</code>，查找符号<code class="language-plaintext highlighter-rouge">dlsym</code>，错误处理<code class="language-plaintext highlighter-rouge">dlerror</code>，关闭动态度<code class="language-plaintext highlighter-rouge">dlclose</code>。</p>
+
+<h2 id="7-内存">7. 内存</h2>
+
+<h3 id="程序的内存布局">程序的内存布局</h3>
+
+<p>现代的应用程序都运行在一个内存空间里，在32位的系统里，这个内存空间拥有4GB的寻址能力。在平坦的内存模型中，整个内存是一个统一的地址空间，用户可以使用一个32位的指针访问任意内存位置。</p>
+
+<p>不过，尽管当今的内存空间号称是平坦的，但实际上内存仍然在不同的地址区间有着不同的地位，例如，大多数操作系统都会将4GB的内存空间中的一部分挪给内核用，应用程序无法直接访问这一段内存，这一部分内存地址被称为内核空间。</p>
+
+<p>剩下的内存空间称为用户空间。一般来讲，应用程序使用的内存空间有如下默认的区域：</p>
+
+<ol>
+  <li>栈：栈用于维护函数调用的上下文。</li>
+  <li>堆：堆用来容纳应用程序动态分配的内存区域。</li>
+  <li>可执行文件映像：储存可执行文件在内存里的映像。</li>
+  <li>保留区：对内存中受到保护而禁止访问的内存区域的总称。</li>
+  <li>动态链接库映射区：用于映射装载的动态链接库。</li>
+</ol>
+
+<p><img src="https://raw.githubusercontent.com/kuanghy/pichub/master/2020/04/86f7099990ff736039089518e9000221.png" alt="https://raw.githubusercontent.com/kuanghy/pichub/master/2020/04/86f7099990ff736039089518e9000221.png" /></p>
+
+<p>在Linux下，如果可执行文件依赖其他共享库，那么系统就会为它在从0x40000000开始的地址分配相应的空间，并将共享库载入到该空间。</p>
+
+<h3 id="栈和调用惯例">栈和调用惯例</h3>
+
+<p>栈保存了一个函数调用所需要的维护信息，这常常被称为栈帧（Stack Frame），栈帧一般包括如下几方面内容：</p>
+
+<ol>
+  <li>函数的返回地址和参数。</li>
+  <li>临时变量：包括函数的非静态局部变量以及编译器自动生成的其他临时变量。</li>
+  <li>保存的上下文：包括在函数调用前后需要保持不变的寄存器。</li>
+</ol>
+
+<blockquote>
+  <p>Where your statics go depends on whether they are <em>zero-initialized</em>. <em>zero-initialized</em> static data goes in <a href="http://en.wikipedia.org/wiki/.bss">.BSS (Block Started by Symbol)</a>, <em>non-zero-initialized</em> data goes in <a href="http://en.wikipedia.org/wiki/Data_segment">.DATA</a>.</p>
+
+</blockquote>
+
+<p>一个函数总是这样调用的：</p>
+
+<ol>
+  <li>把所有参数或一部分参数压入栈中，如果有一部分参数没有入栈，那么使用某些特定寄存器传递。</li>
+  <li>把当前指令的下一条指令压入栈中。</li>
+  <li>跳转到函数体执行。</li>
+</ol>
+
+<p>对于一个被声明为static的函数，且没有函数指针指向这个函数，调用的方式可能不是这样。因为编译器可以随意更改这个函数的任意方面，包括进入和推出指令序列。</p>
+
+<p>在C++中返回一个对象或者一个大的栈变量时，会进行两次拷贝，对于对象来说还需要进行一次临时对象的析构。返回值优化（RVO）可以将某些场合下对象拷贝的次数减一。</p>
+
+<h3 id="堆和内存管理">堆和内存管理</h3>
+
+<p>只有栈对于面向过程的程序设计还远远不够，因为栈上的数据在函数返回时就会被释放掉，所以无法将数据传递至函数外部。而全局变量没有办法动态地产生，只能在编译的时候定义。堆是一块巨大的内存空间，常常占据整个虚拟空间的绝大部分。</p>
+
+<p>Linux下提供两种堆空间分配的方式，即两个系统调用，一个是<code class="language-plaintext highlighter-rouge">brk()</code>系统调用，一个是<code class="language-plaintext highlighter-rouge">mmap()</code>系统调用。</p>
+
+<p><code class="language-plaintext highlighter-rouge">brk()</code>的作用实际上就是设置进程数据段的结束地址，在Linux下，<code class="language-plaintext highlighter-rouge">.bss</code>段和<code class="language-plaintext highlighter-rouge">.data</code>段合并在一起统称数据段。如果我们将数据段的结束地址向高地址移动，那么扩大的空间就可以被我们使用，把这块空间拿来做为堆空间是最常见的做法之一。</p>
+
+<p><code class="language-plaintext highlighter-rouge">mmap()</code>的作用是向操作系统申请一段虚拟地址空间，当然这块虚拟地址空间可以映射到某个文件，当它不将地址空间映射到某个文件时，我们又称这块空间为匿名空间，匿名空间就可以拿来作为堆空间。它的声明如下：</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="o">*</span><span class="nf">mmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">start</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">off_t</span> <span class="n">offset</span><span class="p">);</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">mmap</code>的前两个参数分别用于指定需要申请的空间的起始地址和长度，如果起始地址设为0，那么系统会挑选合适的起始地址。<code class="language-plaintext highlighter-rouge">prot</code>和<code class="language-plaintext highlighter-rouge">flag</code>两个参数用于设置申请的空间的权限（可读、可写、可执行）以及映射类型（文件映射、匿名空间等）。</p>
+
+<p>由于mmap函数是向系统虚拟空间申请内存，其申请的空间的起始地址和大小都必须是系统页的大小的整数倍，对于字节数很小的请求如果也使用mmap的话，无疑是会浪费大量空间的。</p>
+
+<h2 id="8-运行库">8. 运行库</h2>
+
+<h3 id="入口函数和程序初始化">入口函数和程序初始化</h3>
+
+<p>操作系统装载程序之后，首先运行的代码并不是<code class="language-plaintext highlighter-rouge">main</code>的第一行，而是某些别的代码，这些代码负责准备好<code class="language-plaintext highlighter-rouge">main</code>函数执行所需要的环境，并负责调用<code class="language-plaintext highlighter-rouge">main</code>函数。</p>
+
+<p>运行这些代码的函数称为入口函数，视平台的不同而有不同的名字。程序的入口点实际上是一个程序的初始化和结束部分 ，它往往是运行库的一部分。一个典型的程序运行步骤大致如下：</p>
+
+<ol>
+  <li>操作系统在创建进程后，把控制权交到了程序的入口，这个入口往往是运行库中的某个入口函数。</li>
+  <li>入口函数对运行库和程序运行环境进行初始化，包括堆、IO、线程、全局变量构造等等。</li>
+  <li>入口函数在完成初始化之后，调用main函数，正式开始执行程序主体部分。</li>
+  <li>main函数执行完毕之后，返回到入口函数，入口函数进行清理工作，包括全局变量析构、堆销毁、关闭IO等，然后进行操作系统调用结束进程。</li>
+</ol>
+
+<h3 id="运行库和io">运行库和IO</h3>
+
+<p>在Linux中，值为0、1、2的File Descriptor分别代表标准输入、标准输出和标准错误输出。在程序中打开文件得到的fd从3开始增长。fd具体是什么呢？在内核中，每个进程都有一个私有的“打开文件表”，这个表是一个指针数组，每一个元素都指向一个内核的打开文件对象。而fd就是这个表的下标。当用户打开一个文件时，内核会在内部生成一个打开文件的对象，并在这个表里找到一个空项，让这一项指向生成的打开文件对象，并返回这一项的下标作为fd。</p>
+
+<p>IO初始化函数需要在用户空间中建立<code class="language-plaintext highlighter-rouge">stdin</code>、<code class="language-plaintext highlighter-rouge">stdout</code>、<code class="language-plaintext highlighter-rouge">stderr</code>及其对应的<code class="language-plaintext highlighter-rouge">FILE</code>结构，使得程序进入<code class="language-plaintext highlighter-rouge">main</code>之后可以直接使用<code class="language-plaintext highlighter-rouge">printf</code>、<code class="language-plaintext highlighter-rouge">scanf</code>等函数。</p>
+
+<h3 id="cc运行库">C/C++运行库</h3>
+
+<p>一个C语言运行库大致包含了如下功能：</p>
+
+<ol>
+  <li>启动与退出：包括入口函数以及入口函数所依赖的其他函数等。</li>
+  <li>标准函数：由C语言标准规定的C语言标准库所拥有的函数实现，<code class="language-plaintext highlighter-rouge">printf</code>、<code class="language-plaintext highlighter-rouge">exit</code>等。</li>
+  <li>IO：IO功能封装和实现。</li>
+  <li>堆：堆的封装和实现。</li>
+  <li>语言实现：语言中一些特殊功能的实现。</li>
+  <li>调试：实现调试功能的代码。</li>
+</ol>
+
+<h3 id="c全局构造和析构">C++全局构造和析构</h3>
+
+<p>对于每个编译单元，GCC编译器会遍历其中所有的全局对象，生成一个特殊的函数，这个特殊的函数作用是对本编译单元里的所有全局对象进行初始化。一旦一个目标文件里有这样的函数，编译器会在这个编译单元产生的目标文件的<code class="language-plaintext highlighter-rouge">.ctors</code>段里放置一个指针，指向这个函数。</p>
+
+<p>当编译器为每一个编译单元生成一份特殊函数之后，链接器在连接这些目标文件时，会将同名的段合并在一起，这样每个目标文件的<code class="language-plaintext highlighter-rouge">.ctors</code>段将会被合并成为一个<code class="language-plaintext highlighter-rouge">.ctors</code>段，其中的内容是各个目标文件的<code class="language-plaintext highlighter-rouge">.ctors</code>段的内容拼接而成。由于每个目标文件的<code class="language-plaintext highlighter-rouge">.ctors</code>段都只储存了一个指针，因此拼接起来的<code class="language-plaintext highlighter-rouge">.ctors</code>段就成为了一个函数指针数组，每个元素都指向了一个目标文件的全局构造函数。在入口函数中，这个函数指针数组会被依次调用，完成全局对象的构造。</p>
+
+<p>在生成的全局构造函数中，会进行全局对象的初始化，同时注册一个全局对象的析构函数。保证在<code class="language-plaintext highlighter-rouge">main</code>函数退出之后，调用了构造函数的对象会被析构。</p>
+
+<h2 id="9-系统调用与api">9. 系统调用与API</h2>
+
+<p>系统调用是应用程序与操作系统内核之间的接口，它决定了应用程序是如何与内核打交道的。</p>
+
+<p>为了让应用程序有能力访问系统资源，也为了程序借助操作系统做一些必须由操作系统支持的行为，每个操作系统都会提供一套接口，以供应用程序使用。这些接口往往通过中断来实现，比如Linux使用0x80号中断作为系统调用的接口，Windows使用0x2E号中断作为操作系统调用入口。</p>
+
+<h3 id="linux系统调用">Linux系统调用</h3>
+
+<p>在x86下，系统调用由0x80号中断完成，各个通用寄存器用于传递参数，<code class="language-plaintext highlighter-rouge">EAX</code>寄存器用于表示系统调用的接口号，例如<code class="language-plaintext highlighter-rouge">EAX=1</code>表示退出进程；<code class="language-plaintext highlighter-rouge">EAX=2</code>表示创建进程；<code class="language-plaintext highlighter-rouge">EAX=3</code>表示读取文件或IO；<code class="language-plaintext highlighter-rouge">EAX=4</code>表示写文件或IO等，每个系统调用都对应于内核源代码中的一个函数，它们都以<code class="language-plaintext highlighter-rouge">sys_</code>开头，比如<code class="language-plaintext highlighter-rouge">exit</code>调用对应内核中的<code class="language-plaintext highlighter-rouge">sys_exit</code>函数，当系统调用返回时，EAX又作为调用结果的返回值。</p>
+
+<h3 id="系统调用原理">系统调用原理</h3>
+
+<p>系统调用是运行在内核态的，而应用程序基本都是运行在用户态的。操作系统一般通过<strong>中断</strong>来从用户态切换到内核态。</p>
+
+<p>中断一般具有两个属性，一个称为中断号，一个称为中断处理程序。在内核中，有一个数组称为中断向量表，这个数组的第n项包含了指向第n号中断的中断处理程序的指针。当中断到来时，CPU会暂停当前执行的代码，根据中断的中断号，在中断向量表中找到对应的中断处理程序，并调用它。中断处理程序执行完成之后，CPU会继续执行之前的代码。</p>
+
+<p>在Linux下采用<code class="language-plaintext highlighter-rouge">INT 0x80</code>来触发所有的系统调用。</p>
+
+<p>在触发中断后，系统会切换到内核态，然后CPU会找到中断向量表中的第0x80号元素。在实际执行中断处理程序之前，CPU首先还要进行栈的切换。在Linux中，用户态和内核态使用的是不同的栈，两者各自负责各自的函数调用，互不干扰。但是在应用程序调用0x80号中断时，程序的执行流程从用户态切换到内核态，这时程序的当前栈必须也相应地从用户栈切换到内核栈。从中断处理函数返回时，程序的当前栈还要从内核栈切换回用户栈。进入到内核栈之后，就可以开始执行中断处理函数了。</p>
+
+				</div>
+
+				<div class="post-navigation">
+					
+					<a href="/WASM/" class="prev">
+						<div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous Article</div>
+						<h2 class="post-nav-title">用WASM写推理引擎</h2>
+					</a>
+					 
+					<a href="/CppMemoryOrder/" class="next">
+						<div class="post-nav-arrow">Next Article <i class="ion ion-ios-arrow-round-forward"></i></div>
+						<h2 class="post-nav-title">C++11 Memory Model and Atomic Type</h2>
+					</a>
+					
+				</div>
+
+			</div>
+			
+				<div class="comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//alu-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.comments -->
+			
+	</article> <!-- /.post -->
+
+	<div class="col col-12 col-t-4">
+		<aside class="sidebar">
+  
+  
+  <div class="widget widget-recent">
+    <h3 class="widget-title">Recent Posts</h3>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/SQLite/" style="background-image: url(/img/sqlite.jpg)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/SQLite/">SQLite Source Code</a></h6>
+        <div class="recent-date">
+          <time datetime="2023-04-09T05:49:55+00:00">April 9, 2023</time>
+        </div>
+      </div>
+    </div>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/STLContainer/" style="background-image: url(/img/container.jpg)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/STLContainer/">C++ STL Container</a></h6>
+        <div class="recent-date">
+          <time datetime="2022-05-22T03:06:55+00:00">May 22, 2022</time>
+        </div>
+      </div>
+    </div>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/CppMemoryOrder/" style="background-image: url(/img/order.jpg)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/CppMemoryOrder/">C++11 Memory Model and Atomic Type</a></h6>
+        <div class="recent-date">
+          <time datetime="2022-05-02T10:05:55+00:00">May 2, 2022</time>
+        </div>
+      </div>
+    </div>
+    
+    <div class="recent-posts">
+      
+      <div class="recent-header">
+        <a class="recent-image" href="/LinkLoadLibrary/" style="background-image: url(/img/pink.jpg)"></a>
+      </div>
+      
+      <div class="recent-content">
+        <h6 class="recent-title"><a href="/LinkLoadLibrary/">链接、加载和库</a></h6>
+        <div class="recent-date">
+          <time datetime="2021-12-15T10:05:55+00:00">December 15, 2021</time>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+
+  <div class="widget widget-social">
+    <h3 class="widget-title">Subscribe & Follow</h3>
+    <ul class="social-profiles list-reset">
+      <li class="social-profiles-item">
+        <a href="https://github.com/XU-YaoKun" class="social-profiles-link"><i class="ion ion-logo-github"></i></a>
+      </li>
+
+      <li class="social-profiles-item">
+        <a href="" class="social-profiles-link"><i class="ion ion-ios-text"></i></a>
+      </li>
+
+      <li class="social-profiles-item">
+        <a href="" class="social-profiles-link"><i class="ion ion-ios-trending-up"></i></a>
+      </li>
+
+      <li class="social-profiles-item">
+        <a href="https://unsplash.com/" class="social-profiles-link"><i class="ion ion-ios-images"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="widget widget-tags">
+    <h3 class="widget-title">Tag Cloud</h3>
+     
+    <ul class="tag-list list-reset">
+    
+      
+        <li class="tag-item"><a href="/tags#Note" class="tag">Note</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#Thoughts" class="tag">Thoughts</a></li>
+      
+    
+      
+        <li class="tag-item"><a href="/tags#Translation" class="tag">Translation</a></li>
+      
+    
+    
+    </ul>
+  </div>
+  
+</aside> <!-- /.sidebar -->
+	</div>
+
+	</div>
+</div>
+
+  <footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <div class="footer-top">
+          <h2 class="logo-title">
+            <a href="/" class="logo-text">ALU</a>
+          </h2>
+          <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+        </div>
+        <div class="footer-bottom">
+          <div class="copyright">
+            <p>&copy; 2023 Crafted & Designed by <a href="https://github.com/artemsheludko/galada">Artem Sheludko</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> <!-- /.footer -->
+  <script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/simple-jekyll-search.min.js"></script>
+<script>
+  SimpleJekyllSearch({
+  searchInput: document.getElementById("js-search-input"),
+  resultsContainer: document.getElementById("js-results-container"),
+  json: "/search.json",
+  searchResultTemplate:
+    '<li class="search-item"><a class="search-link" href="{url}">{title}</a></li>',
+  noResultsText: '<li class="search-no-item">No results found</li>'
+  });
+</script>
+<script src="/js/instafeed.min.js"></script>
+<script src="/js/jquery.waitforimages.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script src="/js/common.js"></script>
+
+
+</body>
+
+</html>
